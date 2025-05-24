@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
-class FourHundredYearCalendar
+public class CalendarUtils
 {
     // Determines whether a given year is a leap year
-    static bool IsLeapYear(int year) =>
+    public static bool IsLeapYear(int year) =>
         (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 
     // Returns the number of days in a specific month of a given year
@@ -23,10 +22,10 @@ class FourHundredYearCalendar
         else if (month == 10) return 31;
         else if (month == 11) return 30;
         else if (month == 12) return 31;
-        else return 0; // Return 0 for invalid month
+        else return 0;
     }
 
-    // Generates the lines (as strings) to visually represent one month in a calendar format
+    // Generates a list of strings representing a month's calendar layout
     public static List<string> GetMonthLines(int month, int year)
     {
         List<string> lines = new List<string>();
@@ -35,23 +34,20 @@ class FourHundredYearCalendar
             "July", "August", "September", "October", "November", "December"
         };
 
-        // Add month title in format "Month, Year"
         lines.Add($"{months[month - 1]}, {year}".PadRight(22));
-        lines.Add("Su Mo Tu We Th Fr Sa"); // Day headers
+        lines.Add("Su Mo Tu We Th Fr Sa");
 
-        int days = GetDaysInMonth(month, year); // Get number of days in the month
-        int startDay = CalculateDayOfWeek(1, month, year); // Get day of week for 1st of month
+        int days = GetDaysInMonth(month, year);
+        int startDay = Program.CalculateDayOfWeek(1, month, year);
 
-        string week = new string(' ', startDay * 3); // Add padding for initial empty days
+        string week = new string(' ', startDay * 3);
         int dayOfWeek = startDay;
 
-        // Generate each date line for the month
         for (int date = 1; date <= days; date++)
         {
-            week += $"{date,2} "; // Add the date, padded to 2 characters
+            week += $"{date,2} ";
             dayOfWeek++;
 
-            // Start a new line after Saturday
             if (dayOfWeek == 7)
             {
                 lines.Add(week.TrimEnd());
@@ -60,11 +56,9 @@ class FourHundredYearCalendar
             }
         }
 
-        // Add the last week line if it wasn't added yet
         if (week.Length > 0)
             lines.Add(week.TrimEnd());
 
         return lines;
     }
 }
-    
