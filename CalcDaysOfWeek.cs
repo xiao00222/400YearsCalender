@@ -40,17 +40,7 @@ public class Program
 
                 int maxLines = allMonthLines.Max(m => m.Count);
 
-                for (int line = 0; line < maxLines; line++)
-                {
-                    for (int m = 0; m < 4; m++)
-                    {
-                        if (line < allMonthLines[m].Count)
-                            Console.Write(allMonthLines[m][line].PadRight(26));
-                        else
-                            Console.Write(new string(' ', 26));
-                    }
-                    Console.WriteLine();
-                }
+                
 
                 Console.WriteLine();
             }
